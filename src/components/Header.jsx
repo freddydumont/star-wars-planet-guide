@@ -8,7 +8,7 @@ const Header = () => (
   <header>
     <Row>
       <Col>
-        <h1 className="title text-center text-uppercase align-items-center mt-5">
+        <h1 className="title text-center text-uppercase align-items-center my-5 ">
           Star Wars<br />Planet Guide
         </h1>
       </Col>

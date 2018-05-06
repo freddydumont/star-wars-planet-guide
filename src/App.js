@@ -3,6 +3,7 @@ import { Container } from 'reactstrap';
 import axios from 'axios';
 // components
 import Header from './components/Header';
+import ReactGrid from './components/ReactGrid';
 
 class App extends Component {
   constructor() {
@@ -44,6 +45,7 @@ class App extends Component {
       <main className="App">
         <Container>
           <Header />
+          <ReactGrid />
           {/* display loading if state is empty, else display table */}
         </Container>
       </main>
