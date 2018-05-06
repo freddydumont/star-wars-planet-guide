@@ -6,7 +6,6 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap4';
 
 class ReactGrid extends Component {
-  state = {};
   render() {
     return (
       <Grid
@@ -15,7 +14,7 @@ class ReactGrid extends Component {
           { name: 'population', title: 'Population' },
           { name: 'terrain', title: 'Terrain' },
         ]}
-        rows={[{ name: 'test', population: 1000, terrain: 'land' }]}
+        rows={this.props.planets}
       >
         <Table />
         <TableHeaderRow />

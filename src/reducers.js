@@ -12,5 +12,16 @@ function planets(state = null, action) {
   }
 }
 
-const reducer = combineReducers({ planets });
+function loading(state = null, action) {
+  switch (action.type) {
+    case 'FETCH_PLANETS_PENDING':
+      return true;
+    case 'FETCH_PLANETS_FULFILLED':
+      return false;
+    default:
+      return state;
+  }
+}
+
+const reducer = combineReducers({ planets, loading });
 export default reducer;
