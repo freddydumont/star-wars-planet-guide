@@ -7,6 +7,12 @@ import Header from './components/Header';
 class App extends Component {
   constructor() {
     super();
+
+    this.state = {
+      planets: null,
+      loading: true,
+    };
+
     const fetchPlanets = axios.create({
       baseURL: 'https://swapi.co/api/planets',
     });
@@ -20,14 +26,20 @@ class App extends Component {
     axios
       .all(PromisedPlanets)
       .then(res => {
-        console.log(res);
-        // iterate over response array and get relevant info to pass to state
+        // combine the results of all promises
+        const planets = res.map(page => page.data.results);
+        // merge them to create an array of planet objects
+        this.setState({
+          planets: [].concat(...planets),
+          loading: false,
+        });
       })
       .catch(error => console.log(error));
     // TODO: present option to retry on error
   }
 
   render() {
+    console.log(this.state);
     return (
       <main className="App">
         <Container>
