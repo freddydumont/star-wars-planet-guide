@@ -1,5 +1,6 @@
 {
   "name": "star-wars-planet-guide",
+  "homepage": "https://freddydumont.github.io/star-wars-planet-guide",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -17,7 +18,12 @@
     "redux": "^4.0.0",
     "redux-promise-middleware": "^5.1.1"
   },
+  "devDependencies": {
+    "gh-pages": "^1.1.0"
+  },
   "scripts": {
+    "predeploy": "react-scripts build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
