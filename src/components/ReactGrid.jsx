@@ -25,7 +25,16 @@ class ReactGrid extends Component {
           defaultSorting={[{ columnName: 'name', direction: 'asc' }]}
           columnExtensions={[{ columnName: 'terrain', sortingEnabled: false }]}
         />
-        <IntegratedSorting />
+        <IntegratedSorting
+          columnExtensions={[
+            {
+              // custom sorting fn for population
+              columnName: 'population',
+              compare: (a, b) =>
+                a === 'unknown' ? -1 : b === 'unknown' ? 1 : a - b,
+            },
+          ]}
+        />
         <Table tableComponent={TableComponent} />
         <TableHeaderRow showSortingControls />
       </Grid>
