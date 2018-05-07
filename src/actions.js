@@ -35,3 +35,12 @@ export function fetchResidents(residents, planet) {
     meta: planet,
   };
 }
+
+export const STORE_NO_RESIDENT = 'STORE_NO_RESIDENT';
+
+export function storeNoResident(planet) {
+  return {
+    type: STORE_NO_RESIDENT,
+    payload: planet,
+  };
+}
