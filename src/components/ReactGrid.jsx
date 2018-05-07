@@ -3,8 +3,14 @@ import {
   Grid,
   Table,
   TableHeaderRow,
+  TableFilterRow,
 } from '@devexpress/dx-react-grid-bootstrap4';
-import { SortingState, IntegratedSorting } from '@devexpress/dx-react-grid';
+import {
+  SortingState,
+  IntegratedSorting,
+  FilteringState,
+  IntegratedFiltering,
+} from '@devexpress/dx-react-grid';
 
 const TableComponent = ({ ...restProps }) => (
   <Table.Table {...restProps} className="table-bordered table-hover table-sm" />
@@ -21,6 +27,13 @@ class ReactGrid extends Component {
         ]}
         rows={this.props.planets}
       >
+        <FilteringState
+          columnExtensions={[
+            { columnName: 'population', filteringEnabled: false },
+            { columnName: 'terrain', filteringEnabled: false },
+          ]}
+        />
+        <IntegratedFiltering />
         <SortingState
           defaultSorting={[{ columnName: 'name', direction: 'asc' }]}
           columnExtensions={[{ columnName: 'terrain', sortingEnabled: false }]}
@@ -40,6 +53,7 @@ class ReactGrid extends Component {
           columnExtensions={[{ columnName: 'terrain', wordWrapEnabled: true }]}
         />
         <TableHeaderRow showSortingControls />
+        <TableFilterRow />
       </Grid>
     );
   }
