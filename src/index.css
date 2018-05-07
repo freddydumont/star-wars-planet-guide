@@ -8,3 +8,10 @@ body {
   font-family: 'Libre Franklin', sans-serif;
   color: #ffd54e;
 }
+
+.color--sw-yellow {
+  color: #ffd54e;
+}
+.color--sw-blue {
+  color: #4bd5ee;
+}

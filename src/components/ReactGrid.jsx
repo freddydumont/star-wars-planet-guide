@@ -17,8 +17,22 @@ import RowDetail from './RowDetail';
 import './ReactGrid.css';
 
 const TableComponent = ({ ...restProps }) => (
-  <Table.Table {...restProps} className="table-bordered table-hover table-sm" />
+  <Table.Table
+    {...restProps}
+    className="table-hover table-dark table-striped table-borderless rounded table-sm mb-5"
+  />
 );
+
+const TableHeadComponent = ({ ...restProps }) => (
+  <Table.TableHead {...restProps} className="color--sw-blue" />
+);
+
+const FilterComponent = ({ column, ...restProps }) => {
+  let className = '';
+  if (column.title === 'Population') className = 'd-none';
+  if (column.title === 'Terrain') className = 'd-none';
+  return <TableFilterRow.Cell {...restProps} className={className} />;
+};
 
 class ReactGrid extends Component {
   constructor(props) {
@@ -68,10 +82,11 @@ class ReactGrid extends Component {
         <RowDetailState />
         <Table
           tableComponent={TableComponent}
+          headComponent={TableHeadComponent}
           columnExtensions={columnExtensions.table}
         />
         <TableHeaderRow showSortingControls />
-        <TableFilterRow />
+        <TableFilterRow cellComponent={FilterComponent} />
         <TableRowDetail contentComponent={RowDetail} />
       </Grid>
     );
