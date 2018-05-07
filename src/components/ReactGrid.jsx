@@ -17,40 +17,53 @@ const TableComponent = ({ ...restProps }) => (
 );
 
 class ReactGrid extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      columns: [
+        { name: 'name', title: 'Name' },
+        { name: 'population', title: 'Population' },
+        { name: 'terrain', title: 'Terrain' },
+      ],
+      rows: this.props.planets,
+      defaultSorting: [{ columnName: 'name', direction: 'asc' }],
+      columnExtensions: {
+        table: [{ columnName: 'terrain', wordWrapEnabled: true }],
+        filteringState: [
+          { columnName: 'population', filteringEnabled: false },
+          { columnName: 'terrain', filteringEnabled: false },
+        ],
+        sortingState: [{ columnName: 'terrain', sortingEnabled: false }],
+        integratedSorting: [
+          {
+            // custom sorting fn for population
+            columnName: 'population',
+            compare: (a, b) =>
+              a === 'unknown' ? -1 : b === 'unknown' ? 1 : a - b,
+          },
+        ],
+      },
+    };
+  }
+
   render() {
+    const { rows, columns, defaultSorting, columnExtensions } = this.state;
+
     return (
-      <Grid
-        columns={[
-          { name: 'name', title: 'Name' },
-          { name: 'population', title: 'Population' },
-          { name: 'terrain', title: 'Terrain' },
-        ]}
-        rows={this.props.planets}
-      >
-        <FilteringState
-          columnExtensions={[
-            { columnName: 'population', filteringEnabled: false },
-            { columnName: 'terrain', filteringEnabled: false },
-          ]}
-        />
+      <Grid columns={columns} rows={rows}>
+        <FilteringState columnExtensions={columnExtensions.filteringState} />
         <IntegratedFiltering />
         <SortingState
-          defaultSorting={[{ columnName: 'name', direction: 'asc' }]}
-          columnExtensions={[{ columnName: 'terrain', sortingEnabled: false }]}
+          defaultSorting={defaultSorting}
+          columnExtensions={columnExtensions.sortingState}
         />
         <IntegratedSorting
-          columnExtensions={[
-            {
-              // custom sorting fn for population
-              columnName: 'population',
-              compare: (a, b) =>
-                a === 'unknown' ? -1 : b === 'unknown' ? 1 : a - b,
-            },
-          ]}
+          columnExtensions={columnExtensions.integratedSorting}
         />
         <Table
           tableComponent={TableComponent}
-          columnExtensions={[{ columnName: 'terrain', wordWrapEnabled: true }]}
+          columnExtensions={columnExtensions.table}
         />
         <TableHeaderRow showSortingControls />
         <TableFilterRow />
