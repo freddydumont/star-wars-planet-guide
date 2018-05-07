@@ -5,6 +5,7 @@ import {
   FETCH_RESIDENTS_FULFILLED,
   FETCH_PLANETS_PENDING,
   FETCH_PLANETS_FULFILLED,
+  FETCH_PLANETS_REJECTED,
   STORE_NO_RESIDENT,
 } from './actions';
 
@@ -20,11 +21,24 @@ function planets(state = null, action) {
   }
 }
 
+function fetchPlanetError(state = false, action) {
+  switch (action.type) {
+    case FETCH_PLANETS_REJECTED:
+      return true;
+    case FETCH_PLANETS_FULFILLED:
+    case FETCH_PLANETS_PENDING:
+      return false;
+    default:
+      return state;
+  }
+}
+
 function loading(state = null, action) {
   switch (action.type) {
     case FETCH_PLANETS_PENDING:
       return true;
     case FETCH_PLANETS_FULFILLED:
+    case FETCH_PLANETS_REJECTED:
       return false;
     default:
       return state;
@@ -55,5 +69,10 @@ function residents(state = {}, action) {
   }
 }
 
-const reducer = combineReducers({ planets, loading, residents });
+const reducer = combineReducers({
+  planets,
+  loading,
+  residents,
+  fetchPlanetError,
+});
 export default reducer;

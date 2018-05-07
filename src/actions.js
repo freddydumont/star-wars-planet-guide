@@ -3,6 +3,7 @@ import axios from 'axios';
 export const FETCH_PLANETS = 'FETCH_PLANETS';
 export const FETCH_PLANETS_PENDING = 'FETCH_PLANETS_PENDING';
 export const FETCH_PLANETS_FULFILLED = 'FETCH_PLANETS_FULFILLED';
+export const FETCH_PLANETS_REJECTED = 'FETCH_PLANETS_REJECTED';
 
 export function fetchPlanets() {
   const fetchPlanets = axios.create({
