@@ -35,7 +35,10 @@ class ReactGrid extends Component {
             },
           ]}
         />
-        <Table tableComponent={TableComponent} />
+        <Table
+          tableComponent={TableComponent}
+          columnExtensions={[{ columnName: 'terrain', wordWrapEnabled: true }]}
+        />
         <TableHeaderRow showSortingControls />
       </Grid>
     );
