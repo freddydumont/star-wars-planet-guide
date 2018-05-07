@@ -7,6 +7,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 // css
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
+import 'open-iconic/font/css/open-iconic-bootstrap.min.css';
 import './index.css';
 // redux
 import reducer from './reducers';
