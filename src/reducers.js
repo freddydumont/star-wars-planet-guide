@@ -55,7 +55,7 @@ function residents(state = {}, action) {
     case FETCH_RESIDENTS_PENDING:
       return {
         ...state,
-        [action.meta]: [<dd key="loading">Loading...</dd>],
+        [action.meta]: [<dd key="loading">Searching for residents...</dd>],
       };
     case FETCH_RESIDENTS_FULFILLED:
       return {

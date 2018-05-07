@@ -11,7 +11,7 @@ class App extends Component {
     // if loading, present loading indicator
     let table;
     if (this.props.loading) {
-      table = <p className="text-center">Loading...</p>;
+      table = <p className="text-center">Searching for planets...</p>;
     } else {
       // if error, present option to try again, else display table
       table = this.props.fetchPlanetError ? (
