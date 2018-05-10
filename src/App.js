@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Button } from 'reactstrap';
 import { connect } from 'react-redux';
-import { fetchPlanets } from './actions';
+import { requestPlanets } from './actions';
 // components
 import Header from './components/Header';
 import ReactGrid from './components/ReactGrid';
@@ -20,7 +20,9 @@ class App extends Component {
           <p style={{ color: '#4bd5ee' }}>
             These are not the planets you're looking for...
           </p>
-          <Button onClick={() => this.props.fetchPlanets()}>Try Again?</Button>
+          <Button onClick={() => this.props.requestPlanets()}>
+            Try Again?
+          </Button>
         </div>
       ) : (
         <ReactGrid planets={this.props.planets} />
@@ -44,7 +46,7 @@ App = connect(
     planets,
     fetchPlanetError,
   }),
-  { fetchPlanets }
+  { requestPlanets }
 )(App);
 
 export default App;

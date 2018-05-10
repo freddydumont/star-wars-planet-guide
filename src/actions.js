@@ -1,26 +1,11 @@
 import axios from 'axios';
 
-export const FETCH_PLANETS = 'FETCH_PLANETS';
-export const FETCH_PLANETS_PENDING = 'FETCH_PLANETS_PENDING';
-export const FETCH_PLANETS_FULFILLED = 'FETCH_PLANETS_FULFILLED';
-export const FETCH_PLANETS_REJECTED = 'FETCH_PLANETS_REJECTED';
+// PLANETS
+export const PLANETS_REQUESTED = 'PLANETS_REQUESTED';
+export const PLANETS_RECEIVED = 'PLANETS_RECEIVED';
+export const PLANETS_REQUEST_FAILED = 'PLANETS_REQUEST_FAILED';
 
-export function fetchPlanets() {
-  const fetchPlanets = axios.create({
-    baseURL: 'https://swapi.co/api/planets',
-  });
-
-  // generate an array of promises based on data to fetch from api
-  const promisedPlanets = [];
-  for (let i = 1; i < 8; i++) {
-    promisedPlanets.push(fetchPlanets.get(`/?page=${i}`));
-  }
-
-  return {
-    type: FETCH_PLANETS,
-    payload: axios.all(promisedPlanets),
-  };
-}
+export const requestPlanets = () => ({ type: PLANETS_REQUESTED });
 
 export const FETCH_RESIDENTS = 'FETCH_RESIDENTS';
 export const FETCH_RESIDENTS_PENDING = 'FETCH_RESIDENTS_PENDING';

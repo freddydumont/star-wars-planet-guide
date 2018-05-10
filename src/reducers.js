@@ -1,17 +1,17 @@
 import React from 'react';
 import { combineReducers } from 'redux';
 import {
+  PLANETS_REQUESTED,
+  PLANETS_RECEIVED,
+  PLANETS_REQUEST_FAILED,
   FETCH_RESIDENTS_PENDING,
   FETCH_RESIDENTS_FULFILLED,
-  FETCH_PLANETS_PENDING,
-  FETCH_PLANETS_FULFILLED,
-  FETCH_PLANETS_REJECTED,
   STORE_NO_RESIDENT,
 } from './actions';
 
 function planets(state = null, action) {
   switch (action.type) {
-    case FETCH_PLANETS_FULFILLED:
+    case PLANETS_RECEIVED:
       // combine the results of all promises into a single array
       const planets = action.payload.map(page => page.data.results);
       // return an array of merged planet objects
@@ -23,22 +23,22 @@ function planets(state = null, action) {
 
 function fetchPlanetError(state = false, action) {
   switch (action.type) {
-    case FETCH_PLANETS_REJECTED:
+    case PLANETS_REQUEST_FAILED:
       return true;
-    case FETCH_PLANETS_FULFILLED:
-    case FETCH_PLANETS_PENDING:
+    case PLANETS_RECEIVED:
+    case PLANETS_REQUESTED:
       return false;
     default:
       return state;
   }
 }
 
-function loading(state = null, action) {
+function loading(state = true, action) {
   switch (action.type) {
-    case FETCH_PLANETS_PENDING:
+    case PLANETS_REQUESTED:
       return true;
-    case FETCH_PLANETS_FULFILLED:
-    case FETCH_PLANETS_REJECTED:
+    case PLANETS_RECEIVED:
+    case PLANETS_REQUEST_FAILED:
       return false;
     default:
       return state;
