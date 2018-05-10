@@ -1,13 +1,11 @@
-import React from 'react';
 import { combineReducers } from 'redux';
 import {
   PLANETS_REQUESTED,
   PLANETS_RECEIVED,
   PLANETS_REQUEST_FAILED,
+  PEOPLE_REQUESTED,
   PEOPLE_RECEIVED,
-  FETCH_RESIDENTS_PENDING,
-  FETCH_RESIDENTS_FULFILLED,
-  STORE_NO_RESIDENT,
+  PEOPLE_REQUEST_FAILED,
 } from './actions';
 
 function planets(state = null, action) {
@@ -61,35 +59,10 @@ function loading(state = true, action) {
   }
 }
 
-function residents(state = {}, action) {
-  switch (action.type) {
-    case STORE_NO_RESIDENT:
-      return {
-        ...state,
-        [action.payload]: [<dd key="no">No known resident</dd>],
-      };
-    case FETCH_RESIDENTS_PENDING:
-      return {
-        ...state,
-        [action.meta]: [<dd key="loading">Searching for residents...</dd>],
-      };
-    case FETCH_RESIDENTS_FULFILLED:
-      return {
-        ...state,
-        [action.meta]: action.payload.map(resident => (
-          <dd key={resident.data.name}>{resident.data.name}</dd>
-        )),
-      };
-    default:
-      return state;
-  }
-}
-
 const reducer = combineReducers({
   planets,
   people,
   loading,
-  residents,
   fetchPlanetError,
 });
 export default reducer;

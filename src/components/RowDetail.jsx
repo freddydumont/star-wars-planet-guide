@@ -1,25 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchResidents, storeNoResident } from '../actions';
 
 class RowDetail extends Component {
   constructor(props) {
     super(props);
-    const { row, residents, fetchResidents, storeNoResident } = this.props;
+    const { row, people } = this.props;
 
-    if (row.residents.length > 0) {
-      // this planet has residents, check if already in store before fetching
-      if (!residents[row.name]) {
-        fetchResidents(row.residents, row.name);
-      }
-    } else {
-      // this planet has no known resident, inform store
-      storeNoResident(row.name);
-    }
+    const getResidents = () => {
+      // display residents by grabbing corresponding urls from store
+      return {
+        residents:
+          row.residents.length > 0
+            ? row.residents.map(url => people[url])
+            : ['No known residents'],
+      };
+    };
+
+    this.state = getResidents();
   }
 
   render() {
-    const { row, residents } = this.props;
+    const { row } = this.props;
 
     return (
       <dl className="details">
@@ -36,15 +37,12 @@ class RowDetail extends Component {
         <dt>Surface Water</dt>
         <dd>{row.surface_water}</dd>
         <dt>Residents</dt>
-        {residents[row.name]}
+        {this.state.residents.map(res => <dd key={res}>{res}</dd>)}
       </dl>
     );
   }
 }
 
-RowDetail = connect(({ residents }) => ({ residents }), {
-  fetchResidents,
-  storeNoResident,
-})(RowDetail);
+RowDetail = connect(({ people }) => ({ people }))(RowDetail);
 
 export default RowDetail;
