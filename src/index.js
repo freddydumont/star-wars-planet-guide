@@ -11,7 +11,7 @@ import 'open-iconic/font/css/open-iconic-bootstrap.min.css';
 import './index.css';
 // redux
 import reducer from './reducers';
-import { requestPlanets } from './actions';
+import { requestPlanets, requestPeople } from './actions';
 import rootSaga from './sagas';
 // others
 import App from './App';
@@ -26,10 +26,9 @@ let store = createStore(
 
 sagaMiddleware.run(rootSaga);
 
-// dispatch request to planets API asap
-setTimeout(() => {
-  store.dispatch(requestPlanets());
-}, 500);
+// dispatch requests to API asap
+store.dispatch(requestPlanets());
+store.dispatch(requestPeople());
 
 ReactDOM.render(
   <Provider store={store}>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { call, takeEvery, put, all } from 'redux-saga/effects';
-import { PLANETS_REQUESTED } from './actions';
+import { PLANETS_REQUESTED, PEOPLE_REQUESTED } from './actions';
 
 /**
  * GETs all pages of a resource from SWAPI
@@ -33,7 +33,7 @@ function* watchPlanetsRequested() {
 }
 
 function* watchPeopleRequested() {
-  yield takeEvery('PEOPLE_REQUESTED', fetchResourceSaga, 'people', 9);
+  yield takeEvery(PEOPLE_REQUESTED, fetchResourceSaga, 'people', 9);
 }
 
 export default function* rootSaga() {

@@ -4,6 +4,7 @@ import {
   PLANETS_REQUESTED,
   PLANETS_RECEIVED,
   PLANETS_REQUEST_FAILED,
+  PEOPLE_RECEIVED,
   FETCH_RESIDENTS_PENDING,
   FETCH_RESIDENTS_FULFILLED,
   STORE_NO_RESIDENT,
@@ -16,6 +17,21 @@ function planets(state = null, action) {
       const planets = action.payload.map(page => page.data.results);
       // return an array of merged planet objects
       return [].concat(...planets);
+    default:
+      return state;
+  }
+}
+
+function people(state = null, action) {
+  switch (action.type) {
+    case PEOPLE_RECEIVED:
+      const results = action.payload.map(page => page.data.results);
+      const people = [].concat(...results);
+      // turn each person into a url:name pair
+      return people.reduce((obj, person) => {
+        obj[person.url] = person.name;
+        return obj;
+      }, {});
     default:
       return state;
   }
@@ -71,6 +87,7 @@ function residents(state = {}, action) {
 
 const reducer = combineReducers({
   planets,
+  people,
   loading,
   residents,
   fetchPlanetError,
