@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { call, takeEvery, put, all } from 'redux-saga/effects';
+import { call, takeEvery, put } from 'redux-saga/effects';
 import { PLANETS_REQUESTED, PEOPLE_REQUESTED } from './actions';
 
 /**
@@ -28,14 +28,7 @@ function* fetchResourceSaga(resource, pageCount) {
   }
 }
 
-function* watchPlanetsRequested() {
-  yield takeEvery(PLANETS_REQUESTED, fetchResourceSaga, 'planets', 7);
-}
-
-function* watchPeopleRequested() {
-  yield takeEvery(PEOPLE_REQUESTED, fetchResourceSaga, 'people', 9);
-}
-
 export default function* rootSaga() {
-  yield all([watchPlanetsRequested(), watchPeopleRequested()]);
+  yield takeEvery(PLANETS_REQUESTED, fetchResourceSaga, 'planets', 7);
+  yield takeEvery(PEOPLE_REQUESTED, fetchResourceSaga, 'people', 9);
 }
