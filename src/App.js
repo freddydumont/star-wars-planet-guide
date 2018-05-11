@@ -14,7 +14,7 @@ class App extends Component {
       table = <p className="text-center">Searching for planets...</p>;
     } else {
       // if error, present option to try again, else display table
-      table = this.props.fetchPlanetError ? (
+      table = this.props.errors.planets ? (
         <div className="text-center">
           <h2 className="mb-3">ERROR</h2>
           <p style={{ color: '#4bd5ee' }}>
@@ -41,10 +41,10 @@ class App extends Component {
 }
 
 App = connect(
-  ({ loading, planets, fetchPlanetError }) => ({
+  ({ loading, planets, errors }) => ({
     loading,
     planets,
-    fetchPlanetError,
+    errors,
   }),
   { requestPlanets }
 )(App);

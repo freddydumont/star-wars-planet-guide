@@ -35,13 +35,30 @@ function people(state = null, action) {
   }
 }
 
-function fetchPlanetError(state = false, action) {
+function errors(state = { planets: false, people: false }, action) {
   switch (action.type) {
-    case PLANETS_REQUEST_FAILED:
-      return true;
-    case PLANETS_RECEIVED:
     case PLANETS_REQUESTED:
-      return false;
+    case PLANETS_RECEIVED:
+      return {
+        ...state,
+        planets: false,
+      };
+    case PEOPLE_REQUESTED:
+    case PEOPLE_RECEIVED:
+      return {
+        ...state,
+        people: false,
+      };
+    case PLANETS_REQUEST_FAILED:
+      return {
+        ...state,
+        planets: true,
+      };
+    case PEOPLE_REQUEST_FAILED:
+      return {
+        ...state,
+        people: true,
+      };
     default:
       return state;
   }
@@ -63,6 +80,6 @@ const reducer = combineReducers({
   planets,
   people,
   loading,
-  fetchPlanetError,
+  errors,
 });
 export default reducer;
