@@ -1,27 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { requestPeople } from '../actions';
+import TryAgainButton from './TryAgainButton';
 
 class RowDetail extends Component {
-  constructor(props) {
-    super(props);
-    const { row, people } = this.props;
-
-    const getResidents = () => {
-      // display residents by grabbing corresponding urls from store
-      return {
-        residents:
-          row.residents.length > 0
-            ? row.residents.map(url => people[url])
-            : ['No known residents'],
-      };
-    };
-
-    this.state = getResidents();
-  }
-
   render() {
-    const { row } = this.props;
-
+    const { row, people, errors, loading, requestPeople } = this.props;
+    let residents;
+    // if loading, present loading indicator
+    if (loading.people) {
+      residents = <dd>Searching for residents...</dd>;
+    } else {
+      // if error, present option to try again, else display residents
+      if (errors.people) {
+        residents = (
+          <dd>
+            ERROR – Residents not found! <br />
+            <TryAgainButton size="sm" onClickFunction={requestPeople} />
+          </dd>
+        );
+      } else {
+        residents =
+          row.residents.length > 0 ? (
+            row.residents.map(url => <dd key={url}>{people[url]}</dd>)
+          ) : (
+            <dd>No known residents</dd>
+          );
+      }
+    }
     return (
       <dl className="details">
         <dt>Rotation Period</dt>
@@ -37,12 +43,15 @@ class RowDetail extends Component {
         <dt>Surface Water</dt>
         <dd>{row.surface_water}</dd>
         <dt>Residents</dt>
-        {this.state.residents.map(res => <dd key={res}>{res}</dd>)}
+        {residents}
       </dl>
     );
   }
 }
 
-RowDetail = connect(({ people }) => ({ people }))(RowDetail);
+RowDetail = connect(
+  ({ people, errors, loading }) => ({ people, errors, loading }),
+  { requestPeople }
+)(RowDetail);
 
 export default RowDetail;
