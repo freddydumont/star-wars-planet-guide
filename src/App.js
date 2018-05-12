@@ -10,7 +10,7 @@ class App extends Component {
   render() {
     // if loading, present loading indicator
     let table;
-    if (this.props.loading) {
+    if (this.props.loading.planets) {
       table = <p className="text-center">Searching for planets...</p>;
     } else {
       // if error, present option to try again, else display table

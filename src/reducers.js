@@ -64,13 +64,30 @@ function errors(state = { planets: false, people: false }, action) {
   }
 }
 
-function loading(state = true, action) {
+function loading(state = { planets: true, people: true }, action) {
   switch (action.type) {
     case PLANETS_REQUESTED:
-      return true;
+      return {
+        ...state,
+        planets: true,
+      };
     case PLANETS_RECEIVED:
     case PLANETS_REQUEST_FAILED:
-      return false;
+      return {
+        ...state,
+        planets: false,
+      };
+    case PEOPLE_REQUESTED:
+      return {
+        ...state,
+        people: true,
+      };
+    case PEOPLE_RECEIVED:
+    case PEOPLE_REQUEST_FAILED:
+      return {
+        ...state,
+        people: false,
+      };
     default:
       return state;
   }
