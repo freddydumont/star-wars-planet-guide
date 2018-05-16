@@ -34,8 +34,7 @@ const StyledTableHeadComponent = styled(TableHeadComponent)`
 
 const FilterComponent = ({ column, ...restProps }) => {
   let className = '';
-  if (column.title === 'Population') className = 'd-none';
-  if (column.title === 'Terrain') className = 'd-none';
+  if (column.title === 'Population') className = 'invisible';
   return <TableFilterRow.Cell {...restProps} className={className} />;
 };
 
@@ -66,10 +65,7 @@ class ReactGrid extends Component {
       defaultSorting: [{ columnName: 'name', direction: 'asc' }],
       columnExtensions: {
         table: [{ columnName: 'terrain', wordWrapEnabled: true }],
-        filteringState: [
-          { columnName: 'population', filteringEnabled: false },
-          { columnName: 'terrain', filteringEnabled: false },
-        ],
+        filteringState: [{ columnName: 'population', filteringEnabled: false }],
         sortingState: [{ columnName: 'terrain', sortingEnabled: false }],
         integratedSorting: [
           {
