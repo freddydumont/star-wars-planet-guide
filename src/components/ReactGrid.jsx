@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Badge } from 'reactstrap';
 import styled from 'styled-components';
 import {
   Grid,
@@ -13,8 +14,10 @@ import {
   FilteringState,
   IntegratedFiltering,
   RowDetailState,
+  DataTypeProvider,
 } from '@devexpress/dx-react-grid';
 import RowDetail from './RowDetail';
+import terrainPills from '../terrain';
 
 const TableComponent = ({ ...restProps }) => (
   <Table.Table
@@ -36,6 +39,18 @@ const FilterComponent = ({ column, ...restProps }) => {
   return <TableFilterRow.Cell {...restProps} className={className} />;
 };
 
+const TerrainFormatter = ({ value }) => {
+  return value.split(', ').map(val => (
+    <Badge key={val} pill color={terrainPills[val]} className="mr-1">
+      {val}
+    </Badge>
+  ));
+};
+
+const TerrainTypeProvider = props => (
+  <DataTypeProvider formatterComponent={TerrainFormatter} {...props} />
+);
+
 class ReactGrid extends Component {
   constructor(props) {
     super(props);
@@ -46,6 +61,7 @@ class ReactGrid extends Component {
         { name: 'population', title: 'Population' },
         { name: 'terrain', title: 'Terrain' },
       ],
+      terrainColumns: ['terrain'],
       rows: this.props.planets,
       defaultSorting: [{ columnName: 'name', direction: 'asc' }],
       columnExtensions: {
@@ -68,7 +84,13 @@ class ReactGrid extends Component {
   }
 
   render() {
-    const { rows, columns, defaultSorting, columnExtensions } = this.state;
+    const {
+      rows,
+      columns,
+      terrainColumns,
+      defaultSorting,
+      columnExtensions,
+    } = this.state;
 
     return (
       <Grid columns={columns} rows={rows}>
@@ -82,6 +104,7 @@ class ReactGrid extends Component {
           columnExtensions={columnExtensions.integratedSorting}
         />
         <RowDetailState />
+        <TerrainTypeProvider for={terrainColumns} />
         <Table
           tableComponent={TableComponent}
           headComponent={StyledTableHeadComponent}
