@@ -14,7 +14,6 @@ import {
   RowDetailState,
 } from '@devexpress/dx-react-grid';
 import RowDetail from './RowDetail';
-import './ReactGrid.css';
 
 const TableComponent = ({ ...restProps }) => (
   <Table.Table

@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { requestPeople } from '../actions';
 import TryAgainButton from './TryAgainButton';
+import styled from 'styled-components';
+
+const DefList = styled.dl`
+  dt {
+    color: #4bd5ee;
+  }
+`;
 
 class RowDetail extends Component {
   render() {
@@ -29,7 +36,7 @@ class RowDetail extends Component {
       }
     }
     return (
-      <dl className="details">
+      <DefList>
         <dt>Rotation Period</dt>
         <dd>{row.rotation_period}</dd>
         <dt>Orbital Period</dt>
@@ -44,7 +51,7 @@ class RowDetail extends Component {
         <dd>{row.surface_water}</dd>
         <dt>Residents</dt>
         {residents}
-      </dl>
+      </DefList>
     );
   }
 }
