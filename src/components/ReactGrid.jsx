@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import {
   Grid,
   Table,
@@ -22,9 +23,11 @@ const TableComponent = ({ ...restProps }) => (
   />
 );
 
-const TableHeadComponent = ({ ...restProps }) => (
-  <Table.TableHead {...restProps} className="color--sw-blue" />
-);
+const TableHeadComponent = props => <Table.TableHead {...props} />;
+
+const StyledTableHeadComponent = styled(TableHeadComponent)`
+  color: #4bd5ee;
+`;
 
 const FilterComponent = ({ column, ...restProps }) => {
   let className = '';
@@ -81,7 +84,7 @@ class ReactGrid extends Component {
         <RowDetailState />
         <Table
           tableComponent={TableComponent}
-          headComponent={TableHeadComponent}
+          headComponent={StyledTableHeadComponent}
           columnExtensions={columnExtensions.table}
         />
         <TableHeaderRow showSortingControls />
