@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Row, Col } from 'reactstrap';
 import { requestPeople } from '../actions';
 import TryAgainButton from './TryAgainButton';
 import styled from 'styled-components';
@@ -8,6 +9,12 @@ const DefList = styled.dl`
   dt {
     color: #4bd5ee;
   }
+
+  .oi {
+    margin-right: 0.25rem;
+  }
+
+  margin-left: 2.5rem;
 `;
 
 class RowDetail extends Component {
@@ -37,20 +44,44 @@ class RowDetail extends Component {
     }
     return (
       <DefList>
-        <dt>Rotation Period</dt>
-        <dd>{row.rotation_period}</dd>
-        <dt>Orbital Period</dt>
-        <dd>{row.orbital_period}</dd>
-        <dt>Diameter</dt>
-        <dd>{row.diameter}</dd>
-        <dt>Climate</dt>
-        <dd>{row.climate}</dd>
-        <dt>Gravity</dt>
-        <dd>{row.gravity}</dd>
-        <dt>Surface Water</dt>
-        <dd>{row.surface_water}</dd>
-        <dt>Residents</dt>
-        {residents}
+        <Row>
+          <Col>
+            <dt>
+              <span className="oi oi-contrast" /> Rotation Period
+            </dt>
+            <dd>{row.rotation_period}</dd>
+            <dt>
+              <span className="oi oi-sun" /> Orbital Period
+            </dt>
+            <dd>{row.orbital_period}</dd>
+            <dt>
+              <span className="oi oi-ban" /> Diameter
+            </dt>
+            <dd>{row.diameter}</dd>
+          </Col>
+          <Col>
+            <dt>
+              <span className="oi oi-cloud" /> Climate
+            </dt>
+            <dd>{row.climate}</dd>
+            <dt>
+              <span className="oi oi-arrow-circle-bottom" /> Gravity
+            </dt>
+            <dd>{row.gravity}</dd>
+            <dt>
+              <span className="oi oi-droplet" /> Surface Water
+            </dt>
+            <dd>{row.surface_water}</dd>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <dt>
+              <span className="oi oi-people" /> Residents
+            </dt>
+            {residents}
+          </Col>
+        </Row>
       </DefList>
     );
   }
